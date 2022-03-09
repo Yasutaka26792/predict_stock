@@ -96,7 +96,7 @@ def stock_predict():
 
 
     predicted_data = model.predict(predict_data)
-    df_stock['Predicted'] = np.nan
+    df_stock['Predict'] = np.nan
     last_date = df_stock.iloc[-1].name
     one_day = 86400
     next_unix = last_date.timestamp() + one_day
@@ -104,7 +104,7 @@ def stock_predict():
     for data in predicted_data:
         next_date = datetime.datetime.fromtimestamp(next_unix)
         next_unix += one_day
-        df_stock.loc[next_date] = np.append([np.nan]* (len(df_aapl.columns)-1), data)
+        df_stock.loc[next_date] = np.append([np.nan]* (len(df_stock.columns)-1), data)
 
     df_stock['Close'].plot(figsize=(15,6), color="green")
     df_stock['Predict'].plot(figsize=(15,6), color="orange")
